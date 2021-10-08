@@ -2,6 +2,7 @@ package dad.maven.imc;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
@@ -72,9 +73,8 @@ public class IMC extends Application {
 
 		Bindings.bindBidirectional(pesoText.textProperty(), pesoProperty, new NumberStringConverter());
 		Bindings.bindBidirectional(alturaText.textProperty(), alturaProperty, new NumberStringConverter());
+ 
 
-		 
-		
 	}
 
 	public static void main(String[] args) {
