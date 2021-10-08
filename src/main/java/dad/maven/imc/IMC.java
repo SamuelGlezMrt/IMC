@@ -24,6 +24,7 @@ public class IMC extends Application {
 	private TextField alturaText;
 	private Label imcLabel;
 	private Label resulLabel;
+	private Label formulaLabel;
 
 	DoubleProperty pesoProperty = new SimpleDoubleProperty();
 	DoubleProperty alturaProperty = new SimpleDoubleProperty();
@@ -43,6 +44,8 @@ public class IMC extends Application {
 
 		imcLabel = new Label("IMC: ");
 		resulLabel = new Label();
+
+		formulaLabel = new Label();
 
 		HBox pesoHbox = new HBox();
 		pesoHbox.setSpacing(5);
@@ -70,10 +73,6 @@ public class IMC extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("IMC");
 		primaryStage.show();
-
-		Bindings.bindBidirectional(pesoText.textProperty(), pesoProperty, new NumberStringConverter());
-		Bindings.bindBidirectional(alturaText.textProperty(), alturaProperty, new NumberStringConverter());
- 
 
 	}
 
