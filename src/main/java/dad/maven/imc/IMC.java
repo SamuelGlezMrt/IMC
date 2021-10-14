@@ -24,7 +24,7 @@ public class IMC extends Application {
 	private TextField alturaText;
 	private Label imcLabel;
 	private Label resulLabel;
-	private Label formulaLabel;
+	private Label formLabel;
 
 	DoubleProperty pesoProperty = new SimpleDoubleProperty();
 	DoubleProperty alturaProperty = new SimpleDoubleProperty();
@@ -44,8 +44,7 @@ public class IMC extends Application {
 
 		imcLabel = new Label("IMC: ");
 		resulLabel = new Label();
-
-		formulaLabel = new Label();
+		formLabel = new Label();
 
 		HBox pesoHbox = new HBox();
 		pesoHbox.setSpacing(5);
@@ -59,7 +58,7 @@ public class IMC extends Application {
 
 		HBox imcHbox = new HBox();
 		imcHbox.setSpacing(5);
-		imcHbox.getChildren().addAll(imcLabel);
+		imcHbox.getChildren().addAll(imcLabel, formLabel);
 		imcHbox.setAlignment(Pos.CENTER);
 
 		VBox root = new VBox();
@@ -74,6 +73,34 @@ public class IMC extends Application {
 		primaryStage.setTitle("IMC");
 		primaryStage.show();
 
+		Bindings.bindBidirectional(pesoText.textProperty(), pesoProperty, new NumberStringConverter());
+		Bindings.bindBidirectional(alturaText.textProperty(), alturaProperty, new NumberStringConverter());
+
+		DoubleBinding mBinding = alturaProperty.divide(100);
+
+		DoubleBinding mcuadrado = mBinding.multiply(mBinding);
+
+		DoubleBinding resulFinal = pesoProperty.divide(mcuadrado);
+
+		formLabel.textProperty().bind(Bindings.concat(resulFinal.asString()));
+
+		formLabel.textProperty().addListener((o, ov, nv) -> {
+
+			double num = resulFinal.doubleValue();
+
+			if (num < 18.5) {
+				resulLabel.setText("Peso inferior al normal");
+			}
+			if (num >= 18.5 && num < 25) {
+				resulLabel.setText("Normal");
+			}
+			if (num >= 25 && num < 30) {
+				resulLabel.setText("Peso superior al normal");
+			}
+			if (num >= 30) {
+				resulLabel.setText("Obesidad");
+			}
+		});
 	}
 
 	public static void main(String[] args) {
