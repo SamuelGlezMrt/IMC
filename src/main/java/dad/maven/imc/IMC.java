@@ -82,7 +82,7 @@ public class IMC extends Application {
 
 		DoubleBinding resulFinal = pesoProperty.divide(mcuadrado);
 
-		formLabel.textProperty().bind(Bindings.concat(resulFinal.asString()));
+		formLabel.textProperty().bind(Bindings.concat(resulFinal.asString("%.2f")));
 
 		formLabel.textProperty().addListener((o, ov, nv) -> {
 
